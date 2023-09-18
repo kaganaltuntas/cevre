@@ -1,0 +1,43 @@
+import discord
+import os
+from discord.ext import commands
+import random
+site1 = ["https://cevreonline.com/cevre-kirliligi/","https://ekolojist.net/cevre-kirliligi-nedir/","https://www.omo.com/tr/surdurulebilirlik/cevre-kirliligini-onlemek-icin-neler-yapmaliyiz.html"]
+video1 = ["https://www.youtube.com/watch?v=OF5ea-q28o4","https://www.youtube.com/watch?v=PGGHFTPuQMY","https://www.youtube.com/watch?v=0Lz-DFVZCQM"]
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'{bot.user} olarak giriş yaptık')
+
+@bot.command()
+async def çevre(ctx):
+    resimler = os.listdir('çevre')
+    img_name = random.choice(resimler)
+    with open(f'çevre/{img_name}', 'rb') as f:
+         # Dönüştürülen Discord kütüphane dosyasını bu değişkende saklayalım!
+        picture = discord.File(f)
+   # Daha sonra bu dosyayı bir parametre olarak gönderebiliriz!
+    await ctx.send(file=picture)
+ 
+@bot.command()
+async def site(ctx):
+        await ctx.send(random.choice(site1))
+@bot.command()
+async def video(ctx):
+        await ctx.send(random.choice(video1))        
+         
+ 
+            
+
+
+
+    
+# Dönüştürülen Discord kütüphane dosyasını bu değişkende saklayalım!
+        
+   # Daha sonra bu dosyayı bir parametre olarak gönderebiliriz!
+          
+bot.run("token")
